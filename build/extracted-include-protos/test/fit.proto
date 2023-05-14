@@ -1,0 +1,17 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "org.chb.examples.lib";
+option java_outer_classname = "FitProto";
+
+service Fit {
+  rpc StreamingFitAndSim (stream RequestFit) returns (stream ResponseFit){
+  }
+}
+
+message RequestFit {
+  string fitTcName = 1;
+}
+
+message ResponseFit {
+  string fitRunResult =1;
+}
