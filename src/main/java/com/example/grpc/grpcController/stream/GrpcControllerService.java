@@ -1,5 +1,6 @@
 package com.example.grpc.grpcController.stream;
 
+import com.google.protobuf.Empty;
 import io.grpc.*;
 import io.grpc.stub.StreamObserver;
 import org.chb.examples.lib.ControllerGrpc;
@@ -54,6 +55,21 @@ public class GrpcControllerService {
                                             .setMessage("OK : 200")
                                             .build();
                     responseObserver.onNext(responseController);
+                }
+                @Override
+                public void onError(Throwable t) {}
+                @Override
+                public void onCompleted() {}
+            };
+        }
+
+        @Override
+        public StreamObserver<Empty> checkConnection(StreamObserver<Empty> responseObserver) {
+            return new StreamObserver<Empty>() {
+                @Override
+                public void onNext(Empty value) {
+                    System.out.println("good");
+                    responseObserver.onNext(Empty.newBuilder().build());
                 }
                 @Override
                 public void onError(Throwable t) {
