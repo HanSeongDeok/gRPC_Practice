@@ -1,8 +1,8 @@
 package com.example.grpc.grpcFit.stream;
 
-import io.grpc.Grpc;
-import io.grpc.Server;
-import io.grpc.ServerBuilder;
+import com.google.protobuf.Empty;
+import io.grpc.*;
+import io.grpc.stub.AbstractStub;
 import io.grpc.stub.StreamObserver;
 import org.chb.examples.lib.*;
 
@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Stream;
 
@@ -45,12 +46,28 @@ public class GrpcFitService {
     private final static List<String> messages = new ArrayList();
     private static AtomicInteger listSizeIndex = new AtomicInteger();
     final static String connectHost = "127.0.0.1";
-    final static int connectPort = 9091;
+    final static int connectPort = 9092;
 
     /**
      * 제어기로 요청하기 위한 stub 객체 선언
      */
     private static ControllerGrpc.ControllerStub stub = GrpcCreateStubForController.getStubInstance(connectHost, connectPort);
+    private static ControllerGrpc.ControllerBlockingStub blockingStub= GrpcCreateStubForController.getBlockingStubInstance(connectHost,connectPort);
+
+    private static StreamObserver<Empty> empty = stub.checkConnection(new StreamObserver<Empty>() {
+        @Override
+        public void onNext(Empty value) {
+            if (value!=null){
+                System.out.println("good");
+            }
+            //System.out.println("Received: " + value);
+        }
+        @Override
+        public void onError(Throwable t) {}
+        @Override
+        public void onCompleted() {}
+    });
+
     /**
      * 시뮬레이터에서 받은 요청 받은 TC를 분석하여 추출한 메모리 주소값과 변수 값을 제어기 모듈로 보낼 로직 구현
      */
@@ -60,16 +77,10 @@ public class GrpcFitService {
             System.out.println(value.getMessage());
             messages.add(value.getMessage());
         }
-
         @Override
-        public void onError(Throwable t) {
-
-        }
-
+        public void onError(Throwable t) {}
         @Override
-        public void onCompleted() {
-
-        }
+        public void onCompleted() {}
     });
 
     /**
@@ -90,26 +101,22 @@ public class GrpcFitService {
                             .setVar(map.get(value.getFitTcName()).getVar())
                             .build();
 
-                    streamControllerReq.onNext(controllerBuilder);
-                    while(messages.size() <= listSizeIndex.get()){
-                        //wait
+                        empty.onNext(Empty.newBuilder().build());
+                        streamControllerReq.onNext(controllerBuilder);
+                        while(messages.size() <= listSizeIndex.get()){
+                            //wait
+                        }
+                        ResponseFit fitRes = ResponseFit.newBuilder()
+                                .setFitRunResult(messages.get(listSizeIndex.getAndIncrement()))
+                                .build();
+                        responseObserver.onNext(fitRes);
                     }
-                    ResponseFit fitRes = ResponseFit.newBuilder()
-                                    .setFitRunResult(messages.get(listSizeIndex.getAndIncrement()))
-                                    .build();
-                    responseObserver.onNext(fitRes);
-                }
-
                 @Override
-                public void onError(Throwable t) {
-
-                }
-
+                public void onError(Throwable t) {}
                 @Override
-                public void onCompleted() {
-
-                }
+                public void onCompleted() {}
             };
         }
+
     }
 }
