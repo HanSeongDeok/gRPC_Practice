@@ -1,5 +1,6 @@
 package com.example.grpc.grpcSimulater.stream;
 
+import com.google.protobuf.Empty;
 import io.grpc.stub.StreamObserver;
 import org.chb.examples.lib.FitGrpc;
 import org.chb.examples.lib.RequestFit;
@@ -14,6 +15,7 @@ public class GrpcSimulateService {
     int connectPort = 9095;
     // Stub => 클라이언트에서 서버로 보낼 때 사용 되는 객체
     final FitGrpc.FitStub stub = GrpcCreateStub.getStubInstance(connectHost,connectPort);
+    //final FitGrpc.FitBlockingStub blockingStub = GrpcCreateStub.getBlockStubInstance(connectHost,connectPort);
 
     public void simulateStreamingService() {
         StreamObserver<RequestFit> streamFitReq = this.stub.streamingFitAndSim(new StreamObserver<ResponseFit>() {
@@ -37,6 +39,7 @@ public class GrpcSimulateService {
                 System.out.println("exit");
             }
         });
+
         /**
          * 서버로 요청하는 부분
          */

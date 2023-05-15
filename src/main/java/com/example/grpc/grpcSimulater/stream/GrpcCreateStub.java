@@ -9,6 +9,7 @@ import java.util.Optional;
 public class GrpcCreateStub {
     private ManagedChannel channel;
     private FitGrpc.FitStub stub;
+    private FitGrpc.FitBlockingStub blockingStub;
     private static GrpcCreateStub stubInstance = new GrpcCreateStub();
 
     private FitGrpc.FitStub createStub(String host, int port) {
@@ -19,8 +20,21 @@ public class GrpcCreateStub {
         return stub;
     }
 
+    private FitGrpc.FitBlockingStub createBlockStub(String host, int port) {
+        channel = ManagedChannelBuilder.forAddress(host, port)
+                .usePlaintext()
+                .build();
+        blockingStub = FitGrpc.newBlockingStub(channel);
+        return blockingStub;
+    }
+
     public static FitGrpc.FitStub getStubInstance(String host, int port) {
         return Optional.ofNullable(stubInstance.stub).orElseGet(()->
                 stubInstance.createStub(host, port));
+    }
+
+    public static FitGrpc.FitBlockingStub getBlockStubInstance(String host, int port) {
+        return Optional.ofNullable(stubInstance.blockingStub).orElseGet(()->
+                stubInstance.createBlockStub(host,port));
     }
 }
