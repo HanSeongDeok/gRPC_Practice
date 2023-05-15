@@ -2,21 +2,20 @@ syntax = "proto3";
 option java_multiple_files = true;
 option java_package = "org.chb.examples.lib";
 option java_outer_classname = "ControllerProto";
+import "google/protobuf/empty.proto";
 
 service Controller {
   rpc StreamingFitAndController (stream RequestController) returns (stream ResponseController) {
   }
+  rpc CheckConnection(stream google.protobuf.Empty) returns (stream google.protobuf.Empty){
+  }
 }
 
 message RequestController{
-    MemoryValuePollution memoryValuePollution= 1;
+  string address = 1;
+  int64 var = 2;
 }
 
 message ResponseController{
   string message = 1;
-}
-
-message MemoryValuePollution{
-  string address = 1;
-  int64 var = 2;
 }

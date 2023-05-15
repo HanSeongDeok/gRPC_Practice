@@ -45,6 +45,37 @@ public final class FitGrpc {
     return getStreamingFitAndSimMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.google.protobuf.Empty,
+      com.google.protobuf.Empty> getCheckConnectionMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "CheckConnection",
+      requestType = com.google.protobuf.Empty.class,
+      responseType = com.google.protobuf.Empty.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<com.google.protobuf.Empty,
+      com.google.protobuf.Empty> getCheckConnectionMethod() {
+    io.grpc.MethodDescriptor<com.google.protobuf.Empty, com.google.protobuf.Empty> getCheckConnectionMethod;
+    if ((getCheckConnectionMethod = FitGrpc.getCheckConnectionMethod) == null) {
+      synchronized (FitGrpc.class) {
+        if ((getCheckConnectionMethod = FitGrpc.getCheckConnectionMethod) == null) {
+          FitGrpc.getCheckConnectionMethod = getCheckConnectionMethod =
+              io.grpc.MethodDescriptor.<com.google.protobuf.Empty, com.google.protobuf.Empty>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CheckConnection"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new FitMethodDescriptorSupplier("CheckConnection"))
+              .build();
+        }
+      }
+    }
+    return getCheckConnectionMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -100,6 +131,13 @@ public final class FitGrpc {
       return io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall(getStreamingFitAndSimMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void checkConnection(com.google.protobuf.Empty request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(getCheckConnectionMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -109,6 +147,13 @@ public final class FitGrpc {
                 org.chb.examples.lib.RequestFit,
                 org.chb.examples.lib.ResponseFit>(
                   this, METHODID_STREAMING_FIT_AND_SIM)))
+          .addMethod(
+            getCheckConnectionMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+              new MethodHandlers<
+                com.google.protobuf.Empty,
+                com.google.protobuf.Empty>(
+                  this, METHODID_CHECK_CONNECTION)))
           .build();
     }
   }
@@ -134,6 +179,14 @@ public final class FitGrpc {
       return io.grpc.stub.ClientCalls.asyncBidiStreamingCall(
           getChannel().newCall(getStreamingFitAndSimMethod(), getCallOptions()), responseObserver);
     }
+
+    /**
+     */
+    public void checkConnection(com.google.protobuf.Empty request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getCheckConnectionMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -148,6 +201,13 @@ public final class FitGrpc {
     protected FitBlockingStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       return new FitBlockingStub(channel, callOptions);
+    }
+
+    /**
+     */
+    public com.google.protobuf.Empty checkConnection(com.google.protobuf.Empty request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getCheckConnectionMethod(), getCallOptions(), request);
     }
   }
 
@@ -164,9 +224,18 @@ public final class FitGrpc {
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       return new FitFutureStub(channel, callOptions);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty> checkConnection(
+        com.google.protobuf.Empty request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getCheckConnectionMethod(), getCallOptions()), request);
+    }
   }
 
-  private static final int METHODID_STREAMING_FIT_AND_SIM = 0;
+  private static final int METHODID_CHECK_CONNECTION = 0;
+  private static final int METHODID_STREAMING_FIT_AND_SIM = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -185,6 +254,10 @@ public final class FitGrpc {
     @java.lang.SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_CHECK_CONNECTION:
+          serviceImpl.checkConnection((com.google.protobuf.Empty) request,
+              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
+          break;
         default:
           throw new AssertionError();
       }
@@ -250,6 +323,7 @@ public final class FitGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new FitFileDescriptorSupplier())
               .addMethod(getStreamingFitAndSimMethod())
+              .addMethod(getCheckConnectionMethod())
               .build();
         }
       }

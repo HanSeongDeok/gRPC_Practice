@@ -45,6 +45,37 @@ public final class ControllerGrpc {
     return getStreamingFitAndControllerMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<com.google.protobuf.Empty,
+      com.google.protobuf.Empty> getCheckConnectionMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "CheckConnection",
+      requestType = com.google.protobuf.Empty.class,
+      responseType = com.google.protobuf.Empty.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+  public static io.grpc.MethodDescriptor<com.google.protobuf.Empty,
+      com.google.protobuf.Empty> getCheckConnectionMethod() {
+    io.grpc.MethodDescriptor<com.google.protobuf.Empty, com.google.protobuf.Empty> getCheckConnectionMethod;
+    if ((getCheckConnectionMethod = ControllerGrpc.getCheckConnectionMethod) == null) {
+      synchronized (ControllerGrpc.class) {
+        if ((getCheckConnectionMethod = ControllerGrpc.getCheckConnectionMethod) == null) {
+          ControllerGrpc.getCheckConnectionMethod = getCheckConnectionMethod =
+              io.grpc.MethodDescriptor.<com.google.protobuf.Empty, com.google.protobuf.Empty>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
+              .setFullMethodName(generateFullMethodName(SERVICE_NAME, "CheckConnection"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  com.google.protobuf.Empty.getDefaultInstance()))
+              .setSchemaDescriptor(new ControllerMethodDescriptorSupplier("CheckConnection"))
+              .build();
+        }
+      }
+    }
+    return getCheckConnectionMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -100,6 +131,13 @@ public final class ControllerGrpc {
       return io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall(getStreamingFitAndControllerMethod(), responseObserver);
     }
 
+    /**
+     */
+    public io.grpc.stub.StreamObserver<com.google.protobuf.Empty> checkConnection(
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      return io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall(getCheckConnectionMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -109,6 +147,13 @@ public final class ControllerGrpc {
                 org.chb.examples.lib.RequestController,
                 org.chb.examples.lib.ResponseController>(
                   this, METHODID_STREAMING_FIT_AND_CONTROLLER)))
+          .addMethod(
+            getCheckConnectionMethod(),
+            io.grpc.stub.ServerCalls.asyncBidiStreamingCall(
+              new MethodHandlers<
+                com.google.protobuf.Empty,
+                com.google.protobuf.Empty>(
+                  this, METHODID_CHECK_CONNECTION)))
           .build();
     }
   }
@@ -133,6 +178,14 @@ public final class ControllerGrpc {
         io.grpc.stub.StreamObserver<org.chb.examples.lib.ResponseController> responseObserver) {
       return io.grpc.stub.ClientCalls.asyncBidiStreamingCall(
           getChannel().newCall(getStreamingFitAndControllerMethod(), getCallOptions()), responseObserver);
+    }
+
+    /**
+     */
+    public io.grpc.stub.StreamObserver<com.google.protobuf.Empty> checkConnection(
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      return io.grpc.stub.ClientCalls.asyncBidiStreamingCall(
+          getChannel().newCall(getCheckConnectionMethod(), getCallOptions()), responseObserver);
     }
   }
 
@@ -167,6 +220,7 @@ public final class ControllerGrpc {
   }
 
   private static final int METHODID_STREAMING_FIT_AND_CONTROLLER = 0;
+  private static final int METHODID_CHECK_CONNECTION = 1;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -198,6 +252,9 @@ public final class ControllerGrpc {
         case METHODID_STREAMING_FIT_AND_CONTROLLER:
           return (io.grpc.stub.StreamObserver<Req>) serviceImpl.streamingFitAndController(
               (io.grpc.stub.StreamObserver<org.chb.examples.lib.ResponseController>) responseObserver);
+        case METHODID_CHECK_CONNECTION:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.checkConnection(
+              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
         default:
           throw new AssertionError();
       }
@@ -250,6 +307,7 @@ public final class ControllerGrpc {
           serviceDescriptor = result = io.grpc.ServiceDescriptor.newBuilder(SERVICE_NAME)
               .setSchemaDescriptor(new ControllerFileDescriptorSupplier())
               .addMethod(getStreamingFitAndControllerMethod())
+              .addMethod(getCheckConnectionMethod())
               .build();
         }
       }

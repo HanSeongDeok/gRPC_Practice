@@ -2,9 +2,12 @@ syntax = "proto3";
 option java_multiple_files = true;
 option java_package = "org.chb.examples.lib";
 option java_outer_classname = "ControllerProto";
+import "google/protobuf/empty.proto";
 
 service Controller {
   rpc StreamingFitAndController (stream RequestController) returns (stream ResponseController) {
+  }
+  rpc CheckConnection(stream google.protobuf.Empty) returns (stream google.protobuf.Empty){
   }
 }
 

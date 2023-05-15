@@ -33,17 +33,20 @@ public final class ControllerProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\020controller.proto\"1\n\021RequestController\022" +
-      "\017\n\007address\030\001 \001(\t\022\013\n\003var\030\002 \001(\003\"%\n\022Respons" +
-      "eController\022\017\n\007message\030\001 \001(\t2X\n\nControll" +
-      "er\022J\n\031StreamingFitAndController\022\022.Reques" +
-      "tController\032\023.ResponseController\"\000(\0010\001B)" +
-      "\n\024org.chb.examples.libB\017ControllerProtoP" +
-      "\001b\006proto3"
+      "\n\020controller.proto\032\033google/protobuf/empt" +
+      "y.proto\"1\n\021RequestController\022\017\n\007address\030" +
+      "\001 \001(\t\022\013\n\003var\030\002 \001(\003\"%\n\022ResponseController" +
+      "\022\017\n\007message\030\001 \001(\t2\241\001\n\nController\022J\n\031Stre" +
+      "amingFitAndController\022\022.RequestControlle" +
+      "r\032\023.ResponseController\"\000(\0010\001\022G\n\017CheckCon" +
+      "nection\022\026.google.protobuf.Empty\032\026.google" +
+      ".protobuf.Empty\"\000(\0010\001B)\n\024org.chb.example" +
+      "s.libB\017ControllerProtoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.protobuf.EmptyProto.getDescriptor(),
         });
     internal_static_RequestController_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -57,6 +60,7 @@ public final class ControllerProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ResponseController_descriptor,
         new java.lang.String[] { "Message", });
+    com.google.protobuf.EmptyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

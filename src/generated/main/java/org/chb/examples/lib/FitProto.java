@@ -33,15 +33,19 @@ public final class FitProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\tfit.proto\"\037\n\nRequestFit\022\021\n\tfitTcName\030\001" +
-      " \001(\t\"#\n\013ResponseFit\022\024\n\014fitRunResult\030\001 \001(" +
-      "\t2<\n\003Fit\0225\n\022StreamingFitAndSim\022\013.Request" +
-      "Fit\032\014.ResponseFit\"\000(\0010\001B\"\n\024org.chb.examp" +
-      "les.libB\010FitProtoP\001b\006proto3"
+      "\n\tfit.proto\032\033google/protobuf/empty.proto" +
+      "\"\037\n\nRequestFit\022\021\n\tfitTcName\030\001 \001(\t\"#\n\013Res" +
+      "ponseFit\022\024\n\014fitRunResult\030\001 \001(\t2\201\001\n\003Fit\0225" +
+      "\n\022StreamingFitAndSim\022\013.RequestFit\032\014.Resp" +
+      "onseFit\"\000(\0010\001\022C\n\017CheckConnection\022\026.googl" +
+      "e.protobuf.Empty\032\026.google.protobuf.Empty" +
+      "\"\000B\"\n\024org.chb.examples.libB\010FitProtoP\001b\006" +
+      "proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.protobuf.EmptyProto.getDescriptor(),
         });
     internal_static_RequestFit_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -55,6 +59,7 @@ public final class FitProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ResponseFit_descriptor,
         new java.lang.String[] { "FitRunResult", });
+    com.google.protobuf.EmptyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)
