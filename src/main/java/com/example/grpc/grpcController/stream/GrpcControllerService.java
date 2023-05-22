@@ -51,9 +51,10 @@ public class GrpcControllerService {
                     System.out.println(value.getVar());
 
                     ResponseController responseController = ResponseController.newBuilder()
-                                            .setMessage("OK : 200")
+                                            .setMessage("Successful : 200")
                                             .build();
                     responseObserver.onNext(responseController);
+
                 }
                 @Override
                 public void onError(Throwable t) {
