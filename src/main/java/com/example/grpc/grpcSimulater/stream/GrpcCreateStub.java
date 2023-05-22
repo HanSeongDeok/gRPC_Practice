@@ -5,11 +5,12 @@ import io.grpc.ManagedChannelBuilder;
 import org.chb.examples.lib.FitGrpc;
 
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 public class GrpcCreateStub {
     private ManagedChannel channel;
     private FitGrpc.FitStub stub;
-    private static GrpcCreateStub stubInstance = new GrpcCreateStub();
+    private final static GrpcCreateStub stubInstance = new GrpcCreateStub();
 
     private FitGrpc.FitStub createStub(String host, int port) {
         channel = ManagedChannelBuilder.forAddress(host, port)

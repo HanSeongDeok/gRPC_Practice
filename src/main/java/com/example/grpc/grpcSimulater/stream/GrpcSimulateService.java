@@ -16,27 +16,6 @@ public class GrpcSimulateService {
     final FitGrpc.FitStub stub = GrpcCreateStub.getStubInstance(connectHost,connectPort);
 
     public void simulateStreamingService() {
-        StreamObserver<RequestFit> streamFitReq = this.stub.streamingFitAndSim(new StreamObserver<ResponseFit>() {
-            /**
-             * 응답부 실행내용 구현
-             *
-             * @param value the value passed to the stream
-             */
-            @Override
-            public void onNext(ResponseFit value) {
-                System.out.println("결함 주입 성공 여부 : " + value.getFitRunResult());
-            }
-
-            @Override
-            public void onError(Throwable t) {
-                System.out.println(t.getMessage());
-            }
-
-            @Override
-            public void onCompleted() {
-                System.out.println("exit");
-            }
-        });
         /**
          * 서버로 요청하는 부분
          */
@@ -50,9 +29,19 @@ public class GrpcSimulateService {
                 if(!line.equals("exit")) {
                     list.stream().forEach(v -> {
                         RequestFit.Builder req = RequestFit.newBuilder().setFitTcName(v);
-                        streamFitReq.onNext(req.build());
+                        getStreamRequestObserver().onNext(req.build());
+                        //resetStubDeadline();
                     });
+                } else {
+                    getStreamRequestObserver().onCompleted();
                 }
             }
     }
+    private StreamObserver<RequestFit> getStreamRequestObserver() {
+        return GrpcRequestStreamObserver.getRequestObserver(stub);
+    }
+
+ /*   private void resetStubDeadline() {
+        GrpcRequestStreamObserver.resetStubDeadLine();
+    }*/
 }
