@@ -16,3 +16,8 @@ message RequestController{
 message ResponseController{
   string message = 1;
 }
+
+message MemoryValuePollution{
+  string address = 1;
+  int64 var = 2;
+}

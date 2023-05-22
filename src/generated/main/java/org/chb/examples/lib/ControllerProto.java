@@ -24,6 +24,11 @@ public final class ControllerProto {
   static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_ResponseController_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_MemoryValuePollution_descriptor;
+  static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_MemoryValuePollution_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -35,11 +40,12 @@ public final class ControllerProto {
     java.lang.String[] descriptorData = {
       "\n\020controller.proto\"1\n\021RequestController\022" +
       "\017\n\007address\030\001 \001(\t\022\013\n\003var\030\002 \001(\003\"%\n\022Respons" +
-      "eController\022\017\n\007message\030\001 \001(\t2X\n\nControll" +
-      "er\022J\n\031StreamingFitAndController\022\022.Reques" +
-      "tController\032\023.ResponseController\"\000(\0010\001B)" +
-      "\n\024org.chb.examples.libB\017ControllerProtoP" +
-      "\001b\006proto3"
+      "eController\022\017\n\007message\030\001 \001(\t\"4\n\024MemoryVa" +
+      "luePollution\022\017\n\007address\030\001 \001(\t\022\013\n\003var\030\002 \001" +
+      "(\0032X\n\nController\022J\n\031StreamingFitAndContr" +
+      "oller\022\022.RequestController\032\023.ResponseCont" +
+      "roller\"\000(\0010\001B)\n\024org.chb.examples.libB\017Co" +
+      "ntrollerProtoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -57,6 +63,12 @@ public final class ControllerProto {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_ResponseController_descriptor,
         new java.lang.String[] { "Message", });
+    internal_static_MemoryValuePollution_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_MemoryValuePollution_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_MemoryValuePollution_descriptor,
+        new java.lang.String[] { "Address", "Var", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -5,8 +5,9 @@ import static io.grpc.MethodDescriptor.generateFullMethodName;
 /**
  */
 @javax.annotation.Generated(
-    value = "by gRPC proto compiler (version 1.35.0)",
+    value = "by gRPC proto compiler (version 1.40.0)",
     comments = "Source: fit.proto")
+@io.grpc.stub.annotations.GrpcGenerated
 public final class FitGrpc {
 
   private FitGrpc() {}
