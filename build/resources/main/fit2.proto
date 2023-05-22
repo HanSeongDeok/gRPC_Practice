@@ -1,0 +1,30 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "org.chb.examples.lib";
+option java_outer_classname = "Fit2Proto";
+import "google/protobuf/empty.proto";
+
+service Fit2 {
+  rpc WriteMemoryInfo (TcIndex) returns (TcWriteInfo) {
+  }
+  rpc WriteMemory (TcWriteInfo) returns (TcWriteInfo){
+  }
+  rpc CheckConnection (google.protobuf.Empty) returns (google.protobuf.Empty){
+  }
+}
+
+message TcIndex{
+  string tcIndex = 1;
+}
+
+message TcWriteInfo{
+  int32 address = 1;
+  bytes bytes = 2;
+  string message = 3;
+  WriteAddressAndByte write= 4;
+}
+
+message WriteAddressAndByte{
+  int32 address = 1;
+  bytes bytes = 2;
+}
