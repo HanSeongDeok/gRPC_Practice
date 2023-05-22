@@ -1,12 +1,10 @@
-package com.example.grpc.grpcFit.stream;
+package com.example.grpc.grpcFit.stub;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.chb.examples.lib.ControllerGrpc;
-import org.springframework.stereotype.Controller;
 
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 public class GrpcCreateStubForController {
     private ManagedChannel channel;

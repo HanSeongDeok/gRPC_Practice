@@ -1,4 +1,4 @@
-package com.example.grpc.grpcFit.stream;
+package com.example.grpc.grpcFit.dto;
 
 public class GrpcFitInjectionDTO {
     private String address;

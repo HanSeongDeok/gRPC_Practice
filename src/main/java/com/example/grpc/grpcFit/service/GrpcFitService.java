@@ -1,63 +1,33 @@
-package com.example.grpc.grpcFit.stream;
+package com.example.grpc.grpcFit.service;
 
+import com.example.grpc.grpcFit.dto.GrpcFitInjectionDTO;
+import com.example.grpc.grpcFit.stream.GrpcFitIntoControllerTransfer;
+import com.example.grpc.grpcFit.repository.GrpcFitRepository;
+import com.example.grpc.grpcFit.stream.GrpcRequestStreamObserver;
 import io.grpc.*;
 import io.grpc.stub.StreamObserver;
 import org.chb.examples.lib.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Stream;
-
-public class GrpcFitService {
-    private int port;
-    private Server server;
-    public GrpcFitService(int port) {
-        this.port = port;
-    }
-    public void start() throws IOException {
-        server = ServerBuilder.forPort(port)
-                .addService(new FitService())
-                .build()
-                .start();
-        System.out.println("Server started, listening on port " + port);
-
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("Shutting down gRPC server");
-            stop();
-        }));
-    }
-    public void stop() {
-        if (server != null) {
-            server.shutdown();
-        }
-    }
-    public void blockUntilShutdown() throws InterruptedException {
-        if (server != null) {
-            server.awaitTermination();
-        }
-    }
-
-    private static AtomicInteger listSizeIndex = new AtomicInteger();
-
     /**
      * 클라이언트로 응답을 보내기 위한 객체 FitGrpc.FitImplBase
      */
-    public class FitService extends FitGrpc.FitImplBase {
+    public class GrpcFitService extends FitGrpc.FitImplBase {
+        private static AtomicInteger listSizeIndex = new AtomicInteger();
         @Override
         public StreamObserver<RequestFit> streamingFitAndSim(StreamObserver<ResponseFit> responseObserver) {
             return new StreamObserver<RequestFit>() {
                 @Override
                 public void onNext(RequestFit value) {
                     Map<String, GrpcFitInjectionDTO> map = GrpcFitRepository.getFaultTcInfo();
-
-                    // 요청 TC-Name이 존재하지 않을 경우 예외처리 발생.
+                    // 요청 TC-Name 이 존재하지 않을 경우 예외처리 발생.
                     Optional.ofNullable(map.get(value.getFitTcName()))
                             .orElseThrow(NullPointerException::new);
 
+                    // address 와 variable 값 확인
                     System.out.println("address : " + map.get(value.getFitTcName()).getAddress()+
                             "\nvariable : " + map.get(value.getFitTcName()).getVar());
 
@@ -86,7 +56,6 @@ public class GrpcFitService {
 
                     responseObserver.onNext(fitRes);
                 }
-
                 @Override
                 public void onError(Throwable t) {
 
@@ -98,4 +67,3 @@ public class GrpcFitService {
             };
         }
     }
-}
