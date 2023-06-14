@@ -55,6 +55,7 @@ public class GrpcFitService2 extends Fit2Grpc.Fit2ImplBase {
         System.out.println("index size : " + indexSize);
 
         GrpcFitToDebugger2.getGrpcFitToDebugger().fitToDebugger(info.get());
+        // Async 로 구현할 시 필요한 Spin-Lock 형식의 Loop 문
         while ((int)indexSize.get() != GrpcFitToDebugger2.getGrpcFitToDebugger().getList().size()){
         }
 
